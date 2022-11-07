@@ -68,7 +68,27 @@ reqInstance
         .then(async function (response) {
           let exportStatus = "IN_PROGRESS";
           do {
+            process.stdout.write(
+              "Downloading " +
+                i +
+                " item/" +
+                data.length +
+                " " +
+                percentage +
+                "% complete. \r"
+            );
+         
+          
             await delay(1000).then(async () => {
+              process.stdout.write(
+                "Downloading " +
+                  i +
+                  " item/" +
+                  data.length +
+                  " " +
+                  percentage +
+                  "% complete.. \r"
+              );
               await reqInstance
                 .post(
                   " https://ec.europa.eu/eurostat/databrowser-backend/api/bulk/1.0/LIVE/export/status/" +
@@ -87,6 +107,15 @@ reqInstance
                   }
                 });
             });
+            process.stdout.write(
+              "Downloading " +
+                i +
+                " item/" +
+                data.length +
+                " " +
+                percentage +
+                "% complete... \r"
+            );
           } while (exportStatus == "IN_PROGRESS");
 
           if (i >= data.length) {
